@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{21EB8090-0D4E-1035-B6D3-48EBA215DCB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E9C7FDCE-D52A-8D73-7EB0-C5296AF258F6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\game\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game\src\level.cpp" />
+    <ClCompile Include="..\game\src\player.cpp" />
+    <ClCompile Include="src\tile_entity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\game\src\level.h" />
+    <ClInclude Include="..\game\src\ientity.h" />
+    <ClInclude Include="..\game\src\globals.h" />
+    <ClInclude Include="..\game\src\int2.h" />
+    <ClInclude Include="..\game\src\tile_entity.h" />
+    <ClInclude Include="..\game\src\player.h" />
+    <ClInclude Include="..\game\src\level.fwd.h" />
+    <ClInclude Include="src\tile_snake.h" />
+    <ClInclude Include="src\tile_apple.h" />
+    <ClInclude Include="src\util_draw.h" />
+  </ItemGroup>
+</Project>

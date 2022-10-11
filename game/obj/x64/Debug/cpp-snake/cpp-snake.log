@@ -1,0 +1,15 @@
+﻿  main.cpp
+  level.cpp
+  player.cpp
+C:\Projets\CPP\cpp-snake\game\src\util_draw.h(9,62): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Projets\CPP\cpp-snake\game\src\util_draw.h(11,42): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
+C:\Projets\CPP\cpp-snake\game\src\util_draw.h(11,21): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
+C:\Projets\CPP\cpp-snake\game\src\player.cpp(125,70): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
+C:\Projets\CPP\cpp-snake\game\src\player.cpp(125,55): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
+C:\Projets\CPP\cpp-snake\game\src\player.cpp(132,68): warning C4838: la conversion de 'double' en 'unsigned char' requiert une conversion restrictive
+C:\Projets\CPP\cpp-snake\game\src\player.cpp(132,68): warning C4244: 'initialisation' : conversion de 'double' en 'unsigned char', perte possible de données
+C:\Projets\CPP\cpp-snake\game\src\player.cpp(133,110): warning C4244: 'argument' : conversion de 'float' en 'int', perte possible de données
+C:\Projets\CPP\cpp-snake\game\src\player.cpp(144,61): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+  tile_entity.cpp
+  Génération de code en cours...
+  cpp-snake.vcxproj -> C:\Projets\CPP\cpp-snake\_bin\Debug\cpp-snake.exe
