@@ -16,7 +16,11 @@ private:
 	float current_move_time;
 	Int2 move_dir;
 
+	int score = 0;
 	bool is_game_running = true;
+
+	Sound sound_ouch;
+	Sound sound_grow;
 public:
 	Player( const Int2 pos, Level* level );
 	~Player();

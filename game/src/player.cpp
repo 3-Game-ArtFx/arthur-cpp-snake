@@ -9,11 +9,17 @@ Player::Player( const Int2 pos, Level* level )
 	: level( level )
 {
 	reset();
+
+	sound_grow = LoadSound( "resources/grow.wav" );
+	sound_ouch = LoadSound( "resources/ouch.wav" );
 }
 
 Player::~Player()
 {
 	clear_tiles();
+
+	UnloadSound( sound_grow );
+	UnloadSound( sound_ouch );
 }
 
 void Player::clear_tiles()
@@ -36,11 +42,18 @@ bool Player::try_set_move_dir( const Int2 new_move_dir )
 void Player::reset()
 {
 	clear_tiles();
-	add_tile( level->get_center_position() );
 
+	//  movement
 	current_move_time = MOVE_TIME;
 	move_dir = Int2 { 1, 0 };
 
+	//  tiles
+	add_tile( level->get_center_position() );
+	increase_length();
+	increase_length();
+
+	//  game
+	score = 0;
 	is_game_running = true;
 }
 
@@ -101,8 +114,13 @@ void Player::update( float dt )
 			//  check collision w/ apple
 			else if ( auto apple = dynamic_cast<TileApple*>( tile ) )
 			{
+				score++;
 				apple->eat();
 				increase_length();
+
+				//  play sound
+				SetSoundPitch( sound_grow, 1.0f + (float) GetRandomValue( 0, 100 ) / 100.0f * .5f );
+				PlaySound( sound_grow );
 			}
 		}
 
@@ -118,11 +136,11 @@ void Player::update( float dt )
 
 void Player::draw()
 {
-	//  draw score
 	int font_size = 64;
 
-	const char* text = TextFormat( "%03d", tiles.size() - 1 );
-	util::draw_centered_text( text, (float) SCREEN_WIDTH / 2, font_size * .75, font_size, LIGHTGRAY );
+	//  draw score
+	const char* text = TextFormat( "%03d", score );
+	util::draw_centered_text( text, (float) SCREEN_WIDTH / 2, font_size * .75, font_size, WHITE );
 	
 	//  draw game over screen
 	if ( !is_game_running )
@@ -149,4 +167,6 @@ void Player::die()
 {
 	printf( "dead\n" );
 	is_game_running = false;
+
+	PlaySound( sound_ouch );
 }

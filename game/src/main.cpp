@@ -52,6 +52,8 @@ int main()
 	InitWindow( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE );
 	SetTargetFPS( 60 );
 
+	InitAudioDevice();
+
 	init();
 
 	while ( !WindowShouldClose() )
@@ -64,6 +66,7 @@ int main()
 	release();
 
 	CloseWindow();
+	CloseAudioDevice();
 
 	return 0;
 }
