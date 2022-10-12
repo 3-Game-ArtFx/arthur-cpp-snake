@@ -8,10 +8,10 @@ public:
 	const Color HEAD_COLOR { 27, 255, 27, 255 };
 	const Color BODY_COLOR { 27, 213, 27, 255 };
 private:
-	int length;
+	int _length;
 public:
-	TileSnake( const Int2 pos, Level* level, int length )
-		: length( length ), TileEntity( pos, level )
+	TileSnake( const Int2 pos, Level* _level, int length )
+		: _length( length ), TileEntity( pos, _level )
 	{}
 
 	Color get_color() override
@@ -23,6 +23,6 @@ public:
 			27,
 			255,
 		};*/
-		return length == 0 ? HEAD_COLOR : BODY_COLOR;
+		return _length == 0 ? HEAD_COLOR : BODY_COLOR;
 	}
 };

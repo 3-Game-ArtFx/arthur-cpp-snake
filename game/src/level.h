@@ -18,9 +18,9 @@ public:
 	const int TILE_MARGIN = 4;
 	const int TILE_SIZE = ( SCREEN_HEIGHT - TILE_MARGIN * HEIGHT - PADDING ) / HEIGHT;
 private:
-	Camera2D camera;
+	Camera2D _camera;
 
-	std::unordered_map<Int2, TileEntity*, Int2Hasher> entities;
+	std::unordered_map<Int2, TileEntity*, Int2Hasher> _entities;
 
 	float _shake_intensity = 0.0f;
 
@@ -34,7 +34,7 @@ public:
 
 	void draw_rectangle( Color color );
 
-	void push_view() { BeginMode2D( camera ); }
+	void push_view() { BeginMode2D( _camera ); }
 	void pop_view() { EndMode2D(); }
 	void shake( float intensity );
 

@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include <src/level.fwd.h>
 #include <src/ientity.h>
 #include <src/tile_snake.h>
 
@@ -10,17 +11,17 @@ class Player : public IEntity
 public:
 	const float MOVE_TIME = .25f;
 private:
-	Level* level;
-	std::vector<TileSnake*> tiles;
+	Level* _level;
+	std::vector<TileSnake*> _tiles;
 
-	float current_move_time;
-	Int2 move_dir, last_move_dir;
+	float _current_move_time;
+	Int2 _move_dir, _last_move_dir;
 
-	int score = 0;
-	bool is_game_running = true;
+	int _score = 0;
+	bool _is_game_running = true;
 
-	Sound sound_ouch;
-	Sound sound_grow;
+	Sound _sound_ouch;
+	Sound _sound_grow;
 public:
 	Player( const Int2 pos, Level* level );
 	~Player();

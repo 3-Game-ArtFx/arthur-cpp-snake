@@ -27,10 +27,12 @@ void draw()
 	BeginDrawing();
 	ClearBackground( GRAY );
 
+	//  draw level
 	level.push_view();
 	level.draw();
 	level.pop_view();
 
+	//  draw player HUD
 	player->draw();
 
 	//  draw screen diagonals
@@ -49,13 +51,15 @@ void release()
 
 int main()
 {
+	//  init engine
 	InitWindow( SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE );
+	InitAudioDevice();
 	SetTargetFPS( 60 );
 
-	InitAudioDevice();
-
+	//  game init
 	init();
 
+	//  game loop
 	while ( !WindowShouldClose() )
 	{
 		float dt = GetFrameTime();
@@ -63,8 +67,10 @@ int main()
 		draw();
 	}
 
+	//  game release
 	release();
 
+	//  engine release
 	CloseWindow();
 	CloseAudioDevice();
 

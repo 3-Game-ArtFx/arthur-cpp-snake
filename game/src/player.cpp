@@ -1,41 +1,41 @@
 #include "player.h"
 
-#include "level.h"
+#include <src/level.h>
 #include <src/tile_apple.h>
 #include <string>
 #include <src/util_draw.h>
 
-Player::Player( const Int2 pos, Level* level )
-	: level( level )
+Player::Player( const Int2 pos, Level* _level )
+	: _level( _level )
 {
 	reset();
 
-	sound_grow = LoadSound( "resources/grow.wav" );
-	sound_ouch = LoadSound( "resources/ouch.wav" );
+	_sound_grow = LoadSound( "resources/grow.wav" );
+	_sound_ouch = LoadSound( "resources/ouch.wav" );
 }
 
 Player::~Player()
 {
 	clear_tiles();
 
-	UnloadSound( sound_grow );
-	UnloadSound( sound_ouch );
+	UnloadSound( _sound_grow );
+	UnloadSound( _sound_ouch );
 }
 
 void Player::clear_tiles()
 {
-	for ( TileSnake* tile : tiles )
+	for ( TileSnake* tile : _tiles )
 	{
 		delete tile;
 	}
-	tiles.clear();
+	_tiles.clear();
 }
 
 bool Player::try_set_move_dir( const Int2 new_move_dir )
 {
-	if ( new_move_dir.x == -last_move_dir.x && new_move_dir.y == -last_move_dir.y ) return false;
+	if ( new_move_dir.x == -_last_move_dir.x && new_move_dir.y == -_last_move_dir.y ) return false;
 
-	move_dir = new_move_dir;
+	_move_dir = new_move_dir;
 	return true;
 }
 
@@ -44,22 +44,22 @@ void Player::reset()
 	clear_tiles();
 
 	//  movement
-	current_move_time = MOVE_TIME;
-	move_dir = Int2 { 1, 0 };
+	_current_move_time = MOVE_TIME;
+	_move_dir = Int2 { 1, 0 };
 
-	//  tiles
-	add_tile( level->get_center_position() );
+	//  _tiles
+	add_tile( _level->get_center_position() );
 	increase_length();
 	increase_length();
 
 	//  game
-	score = 0;
-	is_game_running = true;
+	_score = 0;
+	_is_game_running = true;
 }
 
 void Player::update( float dt )
 {
-	if ( !is_game_running )
+	if ( !_is_game_running )
 	{
 		if ( IsKeyPressed( KEY_SPACE ) )
 		{
@@ -87,23 +87,23 @@ void Player::update( float dt )
 	}
 
 	//  movement
-	if ( ( current_move_time -= dt ) <= 0.0f )
+	if ( ( _current_move_time -= dt ) <= 0.0f )
 	{
 		//  reset timer
-		current_move_time += MOVE_TIME;
+		_current_move_time += MOVE_TIME;
 
 		//  get next pos
-		Int2 next_pos = tiles[0]->get_pos() + move_dir;
+		Int2 next_pos = _tiles[0]->get_pos() + _move_dir;
 
 		//  check out of bounds
-		if ( !level->is_in_bounds( next_pos ) )
+		if ( !_level->is_in_bounds( next_pos ) )
 		{
 			die();
 			return;
 		}
-		if ( level->has_entity_at( next_pos ) )
+		if ( _level->has_entity_at( next_pos ) )
 		{
-			TileEntity* tile = level->get_entity_at( next_pos );
+			TileEntity* tile = _level->get_entity_at( next_pos );
 
 			//  check collision w/ its own body
 			if ( dynamic_cast<TileSnake*>( tile ) )
@@ -114,20 +114,20 @@ void Player::update( float dt )
 			//  check collision w/ apple
 			else if ( auto apple = dynamic_cast<TileApple*>( tile ) )
 			{
-				score++;
+				_score++;
 				apple->eat();
 				increase_length();
 
-				level->shake( 0.5f );
+				_level->shake( 0.5f );
 
 				//  play sound
-				SetSoundPitch( sound_grow, 1.0f + (float) GetRandomValue( 0, 100 ) / 100.0f * .5f );
-				PlaySound( sound_grow );
+				SetSoundPitch( _sound_grow, 1.0f + (float) GetRandomValue( 0, 100 ) / 100.0f * .5f );
+				PlaySound( _sound_grow );
 			}
 		}
 
 		//  move
-		for ( TileSnake* tile : tiles )
+		for ( TileSnake* tile : _tiles )
 		{
 			Int2 last_pos = tile->get_pos();
 			tile->set_pos( next_pos );
@@ -135,7 +135,7 @@ void Player::update( float dt )
 		}
 
 		//  set move dir
-		last_move_dir = move_dir;
+		_last_move_dir = _move_dir;
 	}
 }
 
@@ -144,11 +144,11 @@ void Player::draw()
 	int font_size = 64;
 
 	//  draw score
-	const char* text = TextFormat( "%03d", score );
+	const char* text = TextFormat( "%03d", _score );
 	util::draw_centered_text( text, (float) SCREEN_WIDTH / 2, font_size * .75, font_size, WHITE );
 	
 	//  draw game over screen
-	if ( !is_game_running )
+	if ( !_is_game_running )
 	{
 		util::draw_centered_text( "GAME OVER", SCREEN_WIDTH / 2 - font_size, SCREEN_HEIGHT / 2, font_size * 2, WHITE );
 		
@@ -159,21 +159,21 @@ void Player::draw()
 
 void Player::increase_length()
 {
-	add_tile( tiles[tiles.size() - 1]->get_pos() + Int2 { -move_dir.x, -move_dir.y } );
+	add_tile( _tiles[_tiles.size() - 1]->get_pos() + Int2 { -_move_dir.x, -_move_dir.y } );
 }
 
 void Player::add_tile( const Int2 pos )
 {
-	TileSnake* tile = new TileSnake( pos, level, tiles.size() );
-	tiles.push_back( tile );
+	TileSnake* tile = new TileSnake( pos, _level, _tiles.size() );
+	_tiles.push_back( tile );
 }
 
 void Player::die()
 {
 	printf( "dead\n" );
-	is_game_running = false;
+	_is_game_running = false;
 
-	level->shake( 1.5f );
+	_level->shake( 1.5f );
 
-	PlaySound( sound_ouch );
+	PlaySound( _sound_ouch );
 }
