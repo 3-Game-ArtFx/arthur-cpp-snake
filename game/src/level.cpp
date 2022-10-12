@@ -19,7 +19,14 @@ Level::Level()
 
 void Level::update( float dt )
 {
-	//camera.rotation += dt * 25.0f;
+	if ( _shake_intensity > 0.0f )
+	{
+		float offset = GetRandomValue( -1, 1 );
+		_shake_intensity = std::max( 0.0f, _shake_intensity - dt * 1.5f );
+		camera.rotation = offset * _shake_intensity;
+		printf( "shake: %f", _shake_intensity );
+	}
+	//camera.rotation += dt * 5.0f;
 }
 
 void Level::draw()
@@ -55,6 +62,11 @@ void Level::draw()
 void Level::draw_rectangle( Color color )
 {
 	DrawRectangle( _x * TILE_SIZE + _x_margin, _y * TILE_SIZE + _y_margin, TILE_SIZE, TILE_SIZE, color );
+}
+
+void Level::shake( float intensity )
+{
+	_shake_intensity += intensity;
 }
 
 bool Level::add_entity( TileEntity* entity )

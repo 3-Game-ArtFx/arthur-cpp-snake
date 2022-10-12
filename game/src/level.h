@@ -22,6 +22,8 @@ private:
 
 	std::unordered_map<Int2, TileEntity*, Int2Hasher> entities;
 
+	float _shake_intensity = 0.0f;
+
 	int _x = 0, _y = 0;
 	int _x_margin = 0, _y_margin = 0;
 public:
@@ -34,6 +36,7 @@ public:
 
 	void push_view() { BeginMode2D( camera ); }
 	void pop_view() { EndMode2D(); }
+	void shake( float intensity );
 
 	bool add_entity( TileEntity* entity );
 	bool remove_entity( TileEntity* entity );

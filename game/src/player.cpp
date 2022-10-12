@@ -118,6 +118,8 @@ void Player::update( float dt )
 				apple->eat();
 				increase_length();
 
+				level->shake( 0.5f );
+
 				//  play sound
 				SetSoundPitch( sound_grow, 1.0f + (float) GetRandomValue( 0, 100 ) / 100.0f * .5f );
 				PlaySound( sound_grow );
@@ -171,7 +173,7 @@ void Player::die()
 	printf( "dead\n" );
 	is_game_running = false;
 
-	level->shake( 3.0f );
+	level->shake( 1.5f );
 
 	PlaySound( sound_ouch );
 }
