@@ -14,7 +14,7 @@ private:
 	std::vector<TileSnake*> tiles;
 
 	float current_move_time;
-	Int2 move_dir;
+	Int2 move_dir, last_move_dir;
 
 	int score = 0;
 	bool is_game_running = true;

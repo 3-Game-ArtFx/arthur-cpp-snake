@@ -33,7 +33,7 @@ void Player::clear_tiles()
 
 bool Player::try_set_move_dir( const Int2 new_move_dir )
 {
-	if ( new_move_dir.x == -move_dir.x && new_move_dir.y == -move_dir.y ) return false;
+	if ( new_move_dir.x == -last_move_dir.x && new_move_dir.y == -last_move_dir.y ) return false;
 
 	move_dir = new_move_dir;
 	return true;
@@ -131,6 +131,9 @@ void Player::update( float dt )
 			tile->set_pos( next_pos );
 			next_pos = last_pos;
 		}
+
+		//  set move dir
+		last_move_dir = move_dir;
 	}
 }
 
@@ -167,6 +170,8 @@ void Player::die()
 {
 	printf( "dead\n" );
 	is_game_running = false;
+
+	level->shake( 3.0f );
 
 	PlaySound( sound_ouch );
 }
