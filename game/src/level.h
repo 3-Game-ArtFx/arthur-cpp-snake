@@ -6,7 +6,7 @@
 
 #include <src/ientity.h>
 #include <src/tile_entity.h>
-#include <src/globals.h>
+#include <src/screen.h>
 #include <src/int2.h>
 
 class Level : public IEntity

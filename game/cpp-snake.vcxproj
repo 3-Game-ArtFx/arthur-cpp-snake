@@ -181,7 +181,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\game\src\globals.h" />
     <ClInclude Include="..\game\src\ientity.h" />
     <ClInclude Include="..\game\src\int2.h" />
     <ClInclude Include="..\game\src\level.fwd.h" />
@@ -190,6 +189,7 @@
     </ClInclude>
     <ClInclude Include="..\game\src\tile_entity.h" />
     <ClInclude Include="..\game\src\player.h" />
+    <ClInclude Include="src\screen.h" />
     <ClInclude Include="src\tile_apple.h" />
     <ClInclude Include="src\tile_snake.h" />
     <ClInclude Include="src\util_draw.h" />
