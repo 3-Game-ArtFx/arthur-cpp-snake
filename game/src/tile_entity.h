@@ -11,7 +11,7 @@ protected:
 	Int2 pos;
 	Level* level;
 public:
-	TileEntity( const Int2 pos, Level* level );
+	TileEntity( const Int2 pos, Level* _level );
 	virtual ~TileEntity();
 
 	void set_pos( const Int2 new_pos );
